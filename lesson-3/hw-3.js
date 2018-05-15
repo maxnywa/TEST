@@ -19,7 +19,7 @@ console.log( '2.', reverseStr );
 //3
 let factorial = 1,
     num = 10; //num = 10;-можно не задавать как переменную, а в i <= 10
-for (let i = 1; i <= 10; i++){
+for (let i = 1; i <= num; i++){
     factorial *= i
 }
 console.log( '3.', factorial );
@@ -48,3 +48,4 @@ for (let i = 1; i <= 15; i++ ){
    if (i%2) console.log( '6.',i );
    else continue;
 }
+
