@@ -90,9 +90,24 @@ function reverseString(string) {
     if (!string.length)return new Error('text empty');
 
     let reverseString = '';
+
     for (let i = string.length-1; i >= 0; i--){
         reverseString += string[i];
     }
 
     return reverseString;
+}
+
+//4
+function getCodeStringFromText(text) {
+    if (typeof text !== 'string') return new Error('text is not a string');
+    if (!text.length)return new Error('text empty');
+
+    let CodeString = '';
+
+    for (let i = 0; i < text.length; i++){
+        CodeString += text.charCodeAt(i)+ ' ';
+    }
+
+    return CodeString;
 }
