@@ -123,8 +123,13 @@ let chars = [
      chars.sort((prev,next) => prev.index - next.index);
      sentence = chars.reduce((prevVal,item) =>{
         return prevVal + item.char;
-     },' ');
+     },'');
      return sentence;
      }
 console.log( joinSentence(chars) );
 
+//2 вариант
+
+let sent = '';
+chars.forEach(item => sent +=(sent[item.index]=item.char));
+console.log(sent)
