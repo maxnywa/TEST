@@ -51,7 +51,7 @@ function deleteTask(id) {
 function message(text) {
     //remove alert message
     let message = document.querySelector('.alert');
-    if ( message !== null )message.remove();
+    if (message)message.remove();
     //create new div for alert message
     message = document.createElement('div');
     //add classes

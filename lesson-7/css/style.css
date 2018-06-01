@@ -1,0 +1,8 @@
+.list-card .list-group-item {
+    display: flex;
+    align-items: center;
+}
+.list-card .list-group-item .delete-task{
+    margin-left: auto;
+    cursor: pointer;
+}
