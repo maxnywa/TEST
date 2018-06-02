@@ -25,32 +25,40 @@ const whatToWear = [
     {"лето":"одень футболку и шорты"}, {"осень":"одень куртку и штаны"},
     {"зима":"одень шубу и теплые штаны"}, {"весна":"одень ветровку и джинсы"},
 ];
+let whatToWearNeed =[];
+whatToWear.forEach(value => {
+    let obj= {};
+    for (let seas in value){
+        obj.season = seas;
+        obj.wear = value[seas];
+    }
+    whatToWearNeed.push(obj);
+});
+ console.log(whatToWearNeed);
+
 //Create elements
 let forms = document.createElement('form');
 let select = document.createElement('select');
-let inputText = `<input type = text>`;
+let inputText = `<input type = text placeholder="" id="wear">`;
 
 //add to doc
 sectionHW.insertAdjacentElement("afterbegin", forms);
 forms.insertAdjacentElement("afterbegin",select);
-forms.insertAdjacentHTML('beforeend',inputWhatToWear);
-whatToWear.forEach((elem,index) =>{
-    for (season in elem){
-        let options= new Option(season);
-        select.insertAdjacentElement("afterbegin", options);
-        options.setAttribute('value',index);
-    }
-});
-console.log(forms);
+forms.insertAdjacentHTML('beforeend',inputText);
+document.getElementById('wear').value = whatToWearNeed[0].wear;
+
+whatToWearNeed.forEach(({season},index) =>{
+    let options= new Option(season);
+    select.insertAdjacentElement("afterbegin", options);
+    options.setAttribute('value',index);
+} );
 
 //Events
 select.addEventListener('change',wear);
 
-function wear(evn){
-    let text = select.value;
-    console.log(text);
-};
-
+function wear(evn) {
+   document.getElementById('wear').value = whatToWearNeed[select.value].wear;
+}
 
 // Task model
 let tasks = [
