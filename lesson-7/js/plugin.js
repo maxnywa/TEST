@@ -21,35 +21,39 @@ document.addEventListener('click',function (evn) {
 });
 
 //Forms
-const whatToWear = [
+let whatToWear = [
     {"лето":"одень футболку и шорты"}, {"осень":"одень куртку и штаны"},
     {"зима":"одень шубу и теплые штаны"}, {"весна":"одень ветровку и джинсы"},
 ];
+
 //Create elements
 let forms = document.createElement('form');
 let select = document.createElement('select');
-let inputText = `<input type = text>`;
+let inputText = `<input type = text placeholder="" id="wear">`;
 
 //add to doc
-sectionHW.insertAdjacentElement("afterbegin", forms);
+sectionHW.querySelector('.container').insertAdjacentElement("afterbegin", forms);
 forms.insertAdjacentElement("afterbegin",select);
-forms.insertAdjacentHTML('beforeend',inputWhatToWear);
-whatToWear.forEach((elem,index) =>{
-    for (season in elem){
-        let options= new Option(season);
-        select.insertAdjacentElement("afterbegin", options);
-        options.setAttribute('value',index);
-    }
-});
-console.log(forms);
+forms.insertAdjacentHTML('beforeend',inputText);
 
+select.classList.add('mr-5');
+
+whatToWear.forEach((value)=>{
+    for (let seas in value){
+        let options= new Option(seas);
+        select.insertAdjacentElement("afterbegin", options);
+        options.setAttribute('value',[seas]);
+    }
+} );
 //Events
 select.addEventListener('change',wear);
 
-function wear(evn){
-    let text = select.value;
-    console.log(text);
-};
+function wear(evn) {
+    for (let i = 0; i < whatToWear.length; i++){
+      if( whatToWear[i][select.value]) document.getElementById('wear').value  = whatToWear[i][select.value];
+    }
+}
+
 
 
 // Task model
