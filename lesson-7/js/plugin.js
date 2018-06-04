@@ -36,6 +36,7 @@ sectionHW.querySelector('.container').insertAdjacentElement("afterbegin", forms)
 forms.insertAdjacentElement("afterbegin",select);
 forms.insertAdjacentHTML('beforeend',inputText);
 
+
 select.classList.add('mr-5');
 
 whatToWear.forEach((value)=>{
@@ -45,16 +46,16 @@ whatToWear.forEach((value)=>{
         options.setAttribute('value',[seas]);
     }
 } );
+
 //Events
 select.addEventListener('change',wear);
 
 function wear(evn) {
+
     for (let i = 0; i < whatToWear.length; i++){
       if( whatToWear[i][select.value]) document.getElementById('wear').value  = whatToWear[i][select.value];
     }
 }
-
-
 
 // Task model
 let tasks = [
