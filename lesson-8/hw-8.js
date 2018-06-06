@@ -78,3 +78,46 @@ firstUser.getName = otherUser.getName; // одалживание метода
 
 console.log(firstUser.getName());
 console.log(otherUser.getName());
+
+// This. Второй комплект задач
+//1
+function getList() {return this.list}
+let users = {
+    length: 4,
+    list: ['Abraham','James','John','Steven']
+};
+getList();// undefined - так как this  в данном случае - Window
+users.getList = getList; //добавили метод в обьект
+users.getList(); // выведет массив list
+getList.call(users); // задан контекст вызова, выведет массив list
+
+//2,3
+const blueSocks = {
+    unitPrice: 10,
+    packagingAmount:12,
+    packPrice: function () {
+        return this.unitPrice * this.packagingAmount
+    },
+};
+
+console.log(blueSocks.packPrice());
+
+const blackSocks = {
+    unitPrice: 11,
+    packagingAmount:12,
+};
+
+console.log(blueSocks.packPrice.call(blackSocks));
+
+//4
+let sizes = {
+    width:5,
+    height:10
+},
+    getSquare = function () {return this.width * this.height};
+
+console.log(getSquare.call(sizes));
+
+//5
+let numbers = [4,12,0,10,-2,4];
+console.log( Math.min.apply(null,numbers) );
