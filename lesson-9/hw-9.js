@@ -99,29 +99,53 @@ console.log( stringOperations.getReverceString() );
 let numberOperations = (function () {
     let num;
     function initNumber(value) {
-        if (typeof value !== 'number' && typeof Number(value) !== 'number' ) return new Error('Please provide number');
+        if (typeof value !== 'number') return new Error ('Please provide number');
         else num = value;
+        return this
     }
-
     function plus(n) {
-        return num += n;
+        num += n;
+        return this
+    }
+    function minus(n) {
+        num -= n;
+        return this
     }
     function multiply(n) {
-        return num *= n;
+        num *= n;
+        return this
+    }
+    function division(n) {
+        if (n === 0) {
+            return new Error('division on 0');
+        }
+
+        num /= n;
+        return this
+    }
+    function degree(n) {
+        Math.pow(num,n);
+        return this
     }
     function getResult() {
         return Number(num.toFixed(2))
     }
+
     return {
         initNumber,
         plus,
+        minus,
+        division,
         multiply,
+        degree,
         getResult
     }
 }());
 
-console.log( numberOperations.initNumber(10) );
-console.log( numberOperations.plus(5) );
-console.log( numberOperations.multiply(2) );
-console.log( numberOperations.getResult() );
+numberOperations.initNumber(10) ;
+numberOperations.plus(5);
+numberOperations.multiply(2);
+numberOperations.division(0);
+console.log('Результат', numberOperations.getResult() );
 
+//console.log( 'цепочка', numberOperations.initNumber(10).plus(5).division(0).getResult() );

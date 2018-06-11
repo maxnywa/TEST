@@ -132,4 +132,4 @@ console.log( joinSentence(chars) );
 
 let sent = '';
 chars.forEach(item => sent +=(sent[item.index]=item.char));
-console.log(sent)
+console.log(sent);
