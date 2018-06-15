@@ -117,7 +117,7 @@ let numberOperations = (function () {
     }
     function division(n) {
         if (n === 0) {
-            return new Error('division on 0');
+            return throw new Error('division on 0');
         }
 
         num /= n;

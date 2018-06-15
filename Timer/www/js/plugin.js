@@ -1,6 +1,4 @@
-//const hour = Math.floor(seconds/3600);
-// const minutes = Math.floor(seconds/60);
-// const reminderSeconds = seconds % 60;
+
 const timer = (function () {
 
     let countdown,
@@ -65,15 +63,8 @@ const timer = (function () {
     }
 
     function displayAndTime(timestamp) {
-        const  end = new Date(timestamp);
-        const year = end.getFullYear();
-        const month = end.getMonth()+1;
-        const day = end.getDate();
-        const hour = end.getHours();
-        const minutes = end.getMinutes();
-
-
-        endTime.textContent = `Be back at ${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year}  ${hour}:${minutes < 10 ? '0': ''}${minutes}`;
+        const end = new Date(timestamp);
+        endTime.textContent = `Be back at ${end.toLocaleString('en-GB')}`
     }
 
     function stop() {
@@ -119,10 +110,9 @@ function start(e) {
     inputSeconds = Number(input.value)*60;
 }
 
-
-buttons.forEach(btn => btn.addEventListener('click', startTimer));
+//Events
 stopButtons.addEventListener('click', evt => timer.stop());
-
+buttons.forEach(btn => btn.addEventListener('click', startTimer));
 input.addEventListener('input',start);
 input.addEventListener('keydown', evt => {
     if(evt.keyCode === 13) {
