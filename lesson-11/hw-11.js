@@ -13,25 +13,25 @@ console.log(lexus.getModel());
 console.log(lexus.getYear());
 
 //2
-function StringScrambler(str) {
-    this.str = str;
+function StringScrambler(string) {
+    let str = string;
     this.reverse = function () {
-        return this.str.split('').reverse().join('');
+        return str.split('').reverse().join('');
     };
     this.unicode = function () {
         let unicodeStr = '';
-        this.str.split('').forEach(char => {
+        str.split('').forEach(char => {
             return unicodeStr += char.charCodeAt(0);
         });
         return unicodeStr
     };
     this.deleteStr = function () {
-        return this.str = '';
+        return str = '';
     }
 }
 let scrumb = new StringScrambler('abcdef');
 console.log(scrumb.unicode());
-console.log(scrumb.deleteStr());
+console.log(scrumb.reverse());
 
 //3
 function ClassString(str) {
