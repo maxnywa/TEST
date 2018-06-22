@@ -25,17 +25,17 @@ class Http {
         this.company = company.name;
     }
  }
-// Class UI
+
 class Ui {
     addUserToList(user) {
         //Get User list
         const list = document.querySelector('.list-group');
         //Create markup)
         const li = `
-            <li class="list-group-item dropright">
-                    <div class="dropdown-toggle" id = ${user.id} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        ${user.name}
-                    </div>
+            <li class="list-group-item dropright" id = ${user.id}>
+                <div class="dropdown-toggle" id = ${user.id} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    ${user.name}
+                </div>
             </li>
         `;
         list.insertAdjacentHTML("beforeend", li);
@@ -44,18 +44,15 @@ class Ui {
     showUserInfo(user){
         const li = document.getElementById(`${user.id}`);
         let info = '';
-        console.
-        li.classList.add('show')
         info = `
-            <div class="dropdown-menu" aria-labelledby = ${user.id}>       
+            <div class="dropdown-menu" aria-labelledby = ${user.id}>
                 <span class="d-block">Username: ${user.username}</span>
                 <span class="d-block">Company: ${user.company}</span>
             </div>
-        `
+        `;
         li.insertAdjacentHTML("beforeend", info);
     }
 }
-
 
 let http = new Http();
 let users;
@@ -73,18 +70,21 @@ http.get("https://jsonplaceholder.typicode.com/users", function (err, res) {
 
 });
 
-document.querySelector('.list-group').addEventListener('click',function (e) {
+document.querySelector('ul.list-group').addEventListener('click',function (e) {
+    const li = e.target.closest('li');
     const ui = new Ui();
-    if(e.target.classList.contains('list-group-item')){
-        const id = e.target.id;
+    if(li.classList.contains('list-group-item')){
+        const id = li.getAttribute('id');
         users.forEach(elem => {
             if(elem.id == id) {
                 const user = new User( elem.id,elem.name,elem.username,elem.company );
                 ui.showUserInfo(user);
             }
-
         });
 
     }
-})
+});
+
+
+
 

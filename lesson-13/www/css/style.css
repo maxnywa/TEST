@@ -10,3 +10,9 @@ ul li.list-group-item.show{
 .dropdown-toggle{
     padding: 15px;
 }
+.dropright .dropdown-toggle::after{
+    display: none;
+}
+.dropright .dropdown-menu {
+    padding: 10px;
+}
