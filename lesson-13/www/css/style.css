@@ -1,0 +1,12 @@
+ul li.list-group-item{
+    padding: 0;
+}
+ul li.list-group-item:hover{
+    background-color: #478ed1;
+}
+ul li.list-group-item.show{
+    background-color: #0d47a1;
+}
+.dropdown-toggle{
+    padding: 15px;
+}
