@@ -28,11 +28,11 @@ searchBtn.addEventListener('click',onSearch);
                 const response = JSON.parse(res);
                 for (let i = 0; i <= 10; i++){
                     let source = response.sources[ Math.floor( Math.random() * response.sources.length )];
-                    //Еще ^ вот тут выводит ошибку хотя длина есть
-                    console.log(response.sources.length);
-                    ui.addSource(source);
-                    //selectSource.appendChild(new Option(source.name,source.id));
+                    selectSource.appendChild(new Option(source.name,source.id));
                 }
+                $(document).ready(function(){
+                    $('select').formSelect();
+                });
             }
         })
 }());
