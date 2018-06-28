@@ -22,20 +22,18 @@ searchBtn.addEventListener('click',onSearch);
 //Make Source Select
 
 (function makeSelect() {
-    http.get(`https://newsapi.org/v2/sources?apiKey=${apiKey}`,function (err,res) {
-            if(err) return ui.showError(err);
-            else{
-                const response = JSON.parse(res);
-                for (let i = 0; i <= 10; i++){
-                    let source = response.sources[ Math.floor( Math.random() * response.sources.length )];
-                    selectSource.appendChild(new Option(source.name,source.id));
-                }
-                $(document).ready(function(){
-                    $('select').formSelect();
-                });
+    http.get(`https://newsapi.org/v2/sources?apiKey=${apiKey}`)
+        .then (response =>{
+            for (let i = 0; i <= 10; i++){
+                let source = response.sources[ Math.floor( Math.random() * response.sources.length )];
+                selectSource.appendChild(new Option(source.name,source.id));
             }
+            $(document).ready(function(){
+                $('select').formSelect();
+            })
         })
-}());
+        .catch(err => ui.showError(err))
+    }());
 
 //Hendlers event
 function onChangeCountry(e) {
@@ -47,38 +45,34 @@ function onChangeCountry(e) {
         category = country ? `&category=${selectCategory.value}`:`category=${selectCategory.value}`
     }else category = '';
 
-    http.get(`https://newsapi.org/v2/top-headlines?${country}${category}&apiKey=${apiKey}`,function (err,res) {
-        if(err) return ui.showError(err);
-        else{
-            const response = JSON.parse(res);
+    http.get(`https://newsapi.org/v2/top-headlines?${country}${category}&apiKey=${apiKey}`)
+        .then(response =>{
             ui.clearContainer();
             response.articles.forEach(news => ui.addNews(news));
-        }
-    })
+        })
+        .catch(err => ui.showError(err));
 }
+
 function onChangeSource(e) {
     ui.showLoader();
-        http.get(`https://newsapi.org/v2/top-headlines?sources=${selectSource.value}&apiKey=${apiKey}`,function (err,res) {
-            if(err) return ui.showError(err);
-            else{
-                const response = JSON.parse(res);
+
+    http.get(`https://newsapi.org/v2/top-headlines?sources=${selectSource.value}&apiKey=${apiKey}`)
+        .then(response =>{
                 ui.clearContainer();
                 response.articles.forEach(news => ui.addNews(news));
-            }
-        })
+            })
+        .catch(err => ui.showError(err));
 }
 
 function onSearch() {
-    http.get(`https://newsapi.org/v2/everything?q=${searchInput.value}&apiKey=${apiKey}`,function (err,res) {
-        if(err) return ui.showError(err);
+    ui.showLoader();
 
-        const response = JSON.parse(res);
-
+    http.get(`https://newsapi.org/v2/everything?q=${searchInput.value}&apiKey=${apiKey}`)
+        .then(response =>{
         if(response.totalResults) {
             ui.clearContainer();
             response.articles.forEach(news => ui.addNews(news));
-        } else {
-            ui.showInfo('По вашему запрсу новостей не найдено');
-        }
-    })
+        } else ui.showInfo('По вашему запрсу новостей не найдено');
+        })
+        .catch(err => ui.showError(err));
 }
