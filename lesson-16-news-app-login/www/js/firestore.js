@@ -1,6 +1,6 @@
 const FirestoreInit = (function () {
     // Initialize Firebase
-    let config = {
+    var config = {
         apiKey: "AIzaSyAlNAZPYFE25zVgmhm_GCaA7iyTkoyNt34",
         authDomain: "news-app-f20e8.firebaseapp.com",
         databaseURL: "https://news-app-f20e8.firebaseio.com",
