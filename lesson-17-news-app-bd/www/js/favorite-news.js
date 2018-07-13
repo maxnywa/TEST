@@ -8,13 +8,14 @@ const news = new FavoriteNews();
 const newsStore = NewsStore.getInstance();
 
 const newsContainer = document.querySelector('.news-container');
-
+const removeAllNewsBtn = document.querySelector('.remove-all-news');
 
 
 
 //Events
 window.addEventListener('load', onLoad);
 newsContainer.addEventListener('click',onRemoveFromFavorite);
+removeAllNewsBtn.addEventListener('click',onRemoveAllNewsBtn);
 
 
 function onLoad(e) {
@@ -49,4 +50,14 @@ function onRemoveFromFavorite(e) {
             .catch(err => console.log(err))
 
     }
+}
+
+function onRemoveAllNewsBtn(e) {
+    newsContainer.innerHTML = '';
+    news.getFavoriteNews()
+        .then(docs => {
+            docs.forEach(doc => {
+                news.deleteNews(doc.id)
+            })
+        });
 }

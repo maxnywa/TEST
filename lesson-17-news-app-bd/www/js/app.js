@@ -80,8 +80,10 @@ function onChangeSource(e) {
     http.get(`https://newsapi.org/v2/top-headlines?sources=${selectSource.value}&apiKey=${apiKey}`)
         .then(response =>{
                 ui.clearContainer();
-                response.articles.forEach(news => ui.addNews(news));
+                response.articles.forEach((news,index) => ui.addNews(news,index));
+                return response
             })
+        .then(response => newsStore.setNews(response.articles))
         .catch(err => ui.showError(err));
 }
 
@@ -92,9 +94,11 @@ function onSearch(e) {
         .then(response =>{
         if(response.totalResults) {
             ui.clearContainer();
-            response.articles.forEach(news => ui.addNews(news));
+            response.articles.forEach((news,index) => ui.addNews(news,index));
+            return response;
         } else ui.showInfo('По вашему запрсу новостей не найдено');
         })
+        .then(response => newsStore.setNews(response.articles))
         .catch(err => ui.showError(err));
 }
 
