@@ -53,11 +53,13 @@ function onRemoveFromFavorite(e) {
 }
 
 function onRemoveAllNewsBtn(e) {
-    newsContainer.innerHTML = '';
+    newsContainer.querySelector('.row').innerHTML = '';
     news.getFavoriteNews()
         .then(docs => {
             docs.forEach(doc => {
                 news.deleteNews(doc.id)
             })
-        });
+        })
+        .then(ui.showInfo('No Favorite News'));
+
 }
