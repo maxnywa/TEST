@@ -53,7 +53,7 @@ function onRemoveFromFavorite(e) {
 }
 
 function onRemoveAllNewsBtn(e) {
-    newsContainer.querySelector('.row').innerHTML = '';
+    newsContainer.querySelector('.row').remove();
     news.getFavoriteNews()
         .then(docs => {
             docs.forEach(doc => {

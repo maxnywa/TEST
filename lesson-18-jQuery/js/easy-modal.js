@@ -7,20 +7,21 @@
                 overlayOpacity: 0.7,
                 duration: 500,
                 autoClose: false,
-                autoCloseTime: 1000
+                autoCloseTime: 3000
             };
             this.options = $.extend(this.defaultOptions, options)
         }
 
         init(){
-            this.showOverlay();
-            this.showModal();
-            this.setEvents();
-
+            this.showOverlay()
+                .done(this.showModal()
+                    .done(this.setEvents())
+                );
         }
 
         showOverlay(){
             $('body').css({'overflow-y': 'hidden'});
+            let def = $.Deferred();
 
             const overlay = $('<div class="overlay"></div>').css({
                 'display':'block',
@@ -35,9 +36,12 @@
             });
 
             this.modal.before(overlay);
+            return def.resolve();
         }
 
         showModal(){
+            let def = $.Deferred();
+            if (this.calcModalSize()) def.reject();
             const {halfWidth,halfHeight} = this.calcModalSize();
 
             $('.overlay').animate({
@@ -55,7 +59,15 @@
                 'margin-left':`-${halfWidth}px`,
             }).animate({
                 'opacity':'1'
-            },this.options.duration)
+            },this.options.duration);
+
+            if (this.options.autoClose){
+                setTimeout(()=>{
+                    this.closeModal()
+                },this.options.autoCloseTime)
+            }
+
+            return def.resolve();
         }
 
         closeModal(){
@@ -67,7 +79,7 @@
                 'opacity':0
             },this.options.duration, () =>{
                 this.modal.css({'display':'none'})
-            })
+            });
 
             this.clearEvents();
         }
