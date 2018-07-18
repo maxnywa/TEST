@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+  <script>
+      const msgs = [
+          {
+              error:false,
+              text:'Success messages'
+          },
+          {
+              error:true,
+              text:'Error messages'
+          },
+          {
+              error:false,
+              text:'Success messages'
+          }
+      ];
+
+      function creatAlert(msg) {
+          const alert = document.createElement('div');
+          alert.classList.add('alert', `${msg.error?'alert-danger':'alert-success'}`);
+          alert.textContent = msg.text;
+          alert.style.opacity = 0;
+          document.body.insertAdjacentElement("afterbegin", alert);
+
+          return alert;
+      }
+
+      function showAlerts(msgs) {
+          let timeout = 0;
+
+          msgs.forEach(msg => {
+              const alert = creatAlert(msg);
+
+              setTimeout(()=>{
+                  animationElement(alert);
+              },timeout);
+              timeout += 400;
+
+
+          });
+      }
+      function animationElement(element){
+          let step = 0;
+          function  animateAction(time) {
+              step += 0.02;
+              element.style.opacity = step;
+              const raf = requestAnimationFrame(animateAction);
+
+              if (parseFloat(element.style.opacity) >= 1) {
+                  cancelAnimationFrame(raf);
+              }
+          }
+
+          animateAction();
+      }
+      showAlerts(msgs)
+  </script>
+  </body>
+</html>
