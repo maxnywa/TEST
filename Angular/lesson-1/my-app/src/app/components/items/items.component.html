@@ -1,0 +1,38 @@
+<div class="container">
+  <div *ngIf="!items.length">
+    No products
+  </div>
+  <div class="row">
+    <div class="col-6" *ngFor = "let item of items">
+      <div class="card">
+        <h5 class="card-header d-flex">{{item.name}} <span class="ml-auto">{{item.price}}</span></h5>
+        <div class="card-body">
+          <p class="card-text">{{item.info}}</p>
+          <button class="btn btn-primary mr-3" (click)="item.showReview = !item.showReview">Show review</button>
+          <button class="btn btn-danger" (click)="deleteToggle(item.name)">Delete product</button>
+        </div>
+        <div class="review">
+          <div class="row" *ngIf="item.showReview">
+            <div class="col-12" *ngIf="!item.review.length">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-text">No one review yet</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-6" *ngFor = "let post of item.review">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{post.name}}</h5>
+                  <p class="card-text">{{post.text}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/ row-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
